@@ -1,8 +1,8 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router';
 import axios from 'axios';
 import _ from 'lodash';
 import Gallery from 'react-grid-gallery';
-import logo from './logo.svg';
 import './App.css';
 
 export default class App extends React.Component {
@@ -13,6 +13,7 @@ export default class App extends React.Component {
       posts: []
     };
   }
+  
   componentDidMount = async () => {
     const res = await axios.get('https://www.reddit.com/r/pics.json');
     const posts = _.get(res, 'data.data.children');
@@ -39,9 +40,11 @@ export default class App extends React.Component {
     }, []);
 
     return (
-      <div className="App">
-        <Gallery images={galleryImages} enableImageSelection={false} rowHeight={300} />
-      </div>
+      <Router>
+        <div className="App">
+          <Gallery images={galleryImages} enableImageSelection={false} rowHeight={300} />
+        </div>
+      </Router>
     );
   }
 }
